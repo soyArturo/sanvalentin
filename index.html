@@ -1,0 +1,166 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ffebee;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .container {
+        background: white;
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        max-width: 400px;
+      }
+
+      h1 {
+        color: #d32f2f;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+        position: relative;
+      }
+
+      button {
+        padding: 12px 25px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      #si {
+        background-color: #ff4081;
+        color: white;
+      }
+
+      #no {
+        background-color: #9e9e9e;
+        color: white;
+        position: absolute;
+        left: 160px;
+      }
+
+      .hearts-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .heart {
+        position: absolute;
+        color: #ffcdd2;
+        animation: float 4s infinite linear;
+        opacity: 0.7;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #mensaje-final h2 {
+        color: #ff4081;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hearts-container" id="hearts"></div>
+
+    <div class="container" id="main-card">
+      <div id="pregunta">
+        <img
+          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXN2YXNidmR4eHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/K97pXJIsY6rX96vV1e/giphy.gif"
+          alt="Cute bear"
+          width="150"
+        />
+        <h1>¿Quieres ser mi San Valentín este año? ❤️</h1>
+        <div class="buttons">
+          <button id="si">¡SÍ! 😍</button>
+          <button id="no">No 😢</button>
+        </div>
+      </div>
+
+      <div id="mensaje-final" class="hidden">
+        <img
+          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZpZ3R4eHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxeHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/L4lvBpHW3v5rMvVnLh/giphy.gif"
+          alt="Happy dance"
+          width="150"
+        />
+        <h2>¡SABÍA QUE DIRÍAS QUE SÍ! 💖</h2>
+      </div>
+    </div>
+
+    <script>
+      // Lógica del botón "No" que huye
+      const btnNo = document.getElementById("no");
+      const btnSi = document.getElementById("si");
+      btnNo.addEventListener("mouseover", () => {
+        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+        btnNo.style.position = "fixed";
+        btnNo.style.left = x + "px";
+        btnNo.style.top = y + "px";
+      });
+      // Lógica al hacer clic en "Sí"
+      btnSi.addEventListener("click", () => {
+        document.getElementById("pregunta").classList.add("hidden");
+        document.getElementById("mensaje-final").classList.remove("hidden");
+        lanzarConfeti();
+      });
+      // Crear corazones de fondo
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        document.getElementById("hearts").appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+      setInterval(createHeart, 300);
+
+      function lanzarConfeti() {
+        // Podrías añadir una librería de confeti aquí,
+        // pero por ahora los corazones hacen el trabajo ;)
+        document.body.style.backgroundColor = "#fce4ec";
+      }
+    </script>
+  </body>
+</html>
